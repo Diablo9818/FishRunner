@@ -5,26 +5,32 @@ using UnityEngine;
 
 public class Spawner : ObjectPool
 {
-    [SerializeField] private SpawnableObject[] _spawnableObjectTemplates;
+    [SerializeField] private Mover[] _moverObjectTemplates;
     [SerializeField] private Transform[] _spwanPoints;
     [SerializeField] private float _secondsBetweenSpawn;
+    [SerializeField] private ScoreCounter _scoreCounter;
 
+    private WaitForSeconds _waitForSpawn;
     private float _elapsedTime = 0;
     private GameObject[] _spawnableObjects;
 
-    private void Start()
+    private void Awake()
     {
-        _spawnableObjects = _spawnableObjectTemplates.Select(spawnableObject => spawnableObject.gameObject).ToArray();
-        Initialize(_spawnableObjects);
+        _waitForSpawn = new WaitForSeconds(_secondsBetweenSpawn);
     }
 
-    private void Update()
+    private void Start()
     {
-        _elapsedTime += Time.deltaTime;
+        _spawnableObjects = _moverObjectTemplates.Select(spawnableObject => spawnableObject.gameObject).ToArray();
+        Initialize(_spawnableObjects);
+        StartCoroutine(Spawn());
+    }
 
-        if (_elapsedTime >= _secondsBetweenSpawn)
+    private IEnumerator Spawn()
+    {
+        while (Time.timeScale != 0)
         {
-            if(TryGetObject(out GameObject spawnableObject))
+            if (TryGetObject(out GameObject spawnableObject))
             {
                 _elapsedTime = 0;
 
@@ -32,6 +38,7 @@ public class Spawner : ObjectPool
 
                 SetSpawnableObject(spawnableObject, _spwanPoints[spawnPointNumber].position);
             }
+            yield return _waitForSpawn;
         }
     }
 

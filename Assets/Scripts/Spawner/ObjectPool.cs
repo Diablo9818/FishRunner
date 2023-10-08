@@ -27,7 +27,7 @@ public class ObjectPool : MonoBehaviour
         {
             int ranomIndex = Random.Range(0, prefabs.Length);
             GameObject spawned = Instantiate(prefabs[ranomIndex], _container.transform);
-            spawned.SetActive(false);
+            spawned.SetActive(false); 
 
             _pool.Add(spawned);
         }

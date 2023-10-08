@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,30 +10,37 @@ public class ScoreCounter : MonoBehaviour
 
     [SerializeField] private int _scoreToAdd;
     [SerializeField] private int _secondsToAddScore;
+    [SerializeField] private int _scoreToRiseSpeed;
+
+    private WaitForSeconds _waitForUpdateScore;
+
+    private void Awake()
+    {
+        _waitForUpdateScore = new WaitForSeconds(_secondsToAddScore);
+    }
+
+    public bool IsSpeedRising { get; private set; }
 
     private int _score;
-    private float _elapsedTime = 0;
-
 
     private void Start()
     {
         ScoreChanged?.Invoke(_score);
+        StartCoroutine(UpdateScore());
     }
-
-    private void Update()
+    private IEnumerator UpdateScore()
     {
-        _elapsedTime += Time.deltaTime;
-
-        if(_elapsedTime >= _secondsToAddScore)
+        while(Time.timeScale != 0)
         {
-            UpdateScore();
-            _elapsedTime =0;
-        }
-    }
+            if (_score % _scoreToRiseSpeed == 0 && _score != 0)
+            {
+                Time.timeScale += 0.2f;
+            }
 
-    private void UpdateScore()
-    {
-        _score += _scoreToAdd;
-        ScoreChanged?.Invoke(_score);
+            _score += _scoreToAdd;
+            ScoreChanged?.Invoke(_score);
+
+            yield return _waitForUpdateScore;
+        }
     }
 }

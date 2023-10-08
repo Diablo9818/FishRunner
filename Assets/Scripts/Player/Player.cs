@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     [SerializeField] private int _health;
+    [SerializeField] private Shield _shield;
 
     private int _maxHealth;
 
@@ -29,15 +30,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ActivateShield()
+    {
+        _shield.gameObject.SetActive(true);
+    }
+
     public void IncreaseHealth(int healthToIncrease)
     {
-        _health += healthToIncrease;
-
-        if(_health > _maxHealth)
-        {
-            _health = _maxHealth;
-        }
-
+        _health = Mathf.Clamp(_health + healthToIncrease, 0, _maxHealth);
         HealthIncreased?.Invoke(_health);
     }
 

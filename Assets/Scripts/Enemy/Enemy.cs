@@ -13,6 +13,11 @@ public class Enemy : MonoBehaviour
             player.ApplyDamage(_damage);
         }
 
+        if(collision.TryGetComponent(out Shield shield))
+        {
+            shield.TakeDamage();
+        }
+
         if( !collision.TryGetComponent(out SpawnableObject spawnableObject))
         {
             Die();
