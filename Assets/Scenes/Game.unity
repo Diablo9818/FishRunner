@@ -942,7 +942,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -2069,10 +2069,10 @@ RectTransform:
   m_Father: {fileID: 2137021907}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 161}
-  m_SizeDelta: {x: 1920, y: 327}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 966, y: 530}
+  m_SizeDelta: {x: 1956, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1023478942
 MonoBehaviour:
@@ -2094,10 +2094,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 182d7e32afa5b5447ad3ba5196228514, type: 3}
+  m_Texture: {fileID: 2800000, guid: 9387aaa1f24d1154a8b0c11ddaafdd1e, type: 3}
   m_UVRect:
     serializedVersion: 2
-    x: -0.24
+    x: -1.03
     y: 0
     width: 1
     height: 1
