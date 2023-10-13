@@ -6,13 +6,13 @@ using UnityEngine.Events;
 
 public class ScoreCounter : MonoBehaviour
 {
-    public event UnityAction<int> ScoreChanged;
-
     [SerializeField] private int _scoreToAdd;
     [SerializeField] private int _secondsToAddScore;
     [SerializeField] private int _scoreToRiseSpeed;
 
     private WaitForSeconds _waitForUpdateScore;
+
+    public event UnityAction<int> ScoreChanged;
 
     private void Awake()
     {

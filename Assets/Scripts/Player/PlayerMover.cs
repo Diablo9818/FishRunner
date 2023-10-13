@@ -83,7 +83,9 @@ public class PlayerMover : MonoBehaviour
 
     private void Move()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position,
+            _targetPosition, 
+            _moveSpeed * Time.deltaTime);
     }
 
     private void Rotate(float xAngle = 0, float yAngle = 0,float zAngle = 0)

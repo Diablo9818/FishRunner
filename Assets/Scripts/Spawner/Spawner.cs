@@ -11,7 +11,6 @@ public class Spawner : ObjectPool
     [SerializeField] private ScoreCounter _scoreCounter;
 
     private WaitForSeconds _waitForSpawn;
-    private float _elapsedTime = 0;
     private GameObject[] _spawnableObjects;
 
     private void Awake()
@@ -32,12 +31,11 @@ public class Spawner : ObjectPool
         {
             if (TryGetObject(out GameObject spawnableObject))
             {
-                _elapsedTime = 0;
-
                 int spawnPointNumber = Random.Range(0, _spwanPoints.Length);
 
                 SetSpawnableObject(spawnableObject, _spwanPoints[spawnPointNumber].position);
             }
+
             yield return _waitForSpawn;
         }
     }
