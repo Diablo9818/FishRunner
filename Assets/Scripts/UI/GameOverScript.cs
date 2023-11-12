@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class GameOverScript : MonoBehaviour
@@ -10,8 +11,12 @@ public class GameOverScript : MonoBehaviour
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Player _player;
+    [SerializeField] private ScoreCounter _scoreCounter;
+    [SerializeField] private TextMeshProUGUI _gameOverScoreText;
+    [SerializeField] private TextMeshProUGUI _gameOverHighScoreText;
+    [SerializeField] private GameObject _moveButtons;
 
-     private CanvasGroup _gameOverGroup;
+    private CanvasGroup _gameOverGroup;
 
     private void Awake()
     {
@@ -39,6 +44,12 @@ public class GameOverScript : MonoBehaviour
 
     private void OnDied()
     {
+        _scoreCounter.SetMaxScore();
+
+        _gameOverScoreText.text = $"{_scoreCounter.Score}.";
+        _gameOverHighScoreText.text = $"{_scoreCounter.MaxScore}.";
+       
+        _moveButtons.SetActive(false);
         _gameOverGroup.alpha = 1;
         Time.timeScale = 0;
     }
@@ -46,7 +57,7 @@ public class GameOverScript : MonoBehaviour
     private void OnRestartButtonClick()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     private void OnExitButtonClick()

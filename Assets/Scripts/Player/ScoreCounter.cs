@@ -14,31 +14,45 @@ public class ScoreCounter : MonoBehaviour
 
     public event UnityAction<int> ScoreChanged;
 
+    public int Score { get; private set; }
+    public int MaxScore { get; private set; }
+
     private void Awake()
     {
         _waitForUpdateScore = new WaitForSeconds(_secondsToAddScore);
+
+        MaxScore = PlayerPrefs.GetInt("MaxScore", 0);
+
+        Score = 0;
     }
-
-    public bool IsSpeedRising { get; private set; }
-
-    private int _score;
 
     private void Start()
     {
-        ScoreChanged?.Invoke(_score);
+        ScoreChanged?.Invoke(Score);
         StartCoroutine(UpdateScore());
     }
+
+    public void SetMaxScore()
+    {
+        if(Score >= MaxScore)
+        {
+            MaxScore = Score;
+            PlayerPrefs.SetInt("MaxScore", MaxScore);
+            PlayerPrefs.Save();
+        }
+    }
+
     private IEnumerator UpdateScore()
     {
         while(Time.timeScale != 0)
         {
-            if (_score % _scoreToRiseSpeed == 0 && _score != 0)
+            if (Score % _scoreToRiseSpeed == 0 && Score != 0)
             {
                 Time.timeScale += 0.2f;
             }
 
-            _score += _scoreToAdd;
-            ScoreChanged?.Invoke(_score);
+            Score += _scoreToAdd;
+            ScoreChanged?.Invoke(Score);
 
             yield return _waitForUpdateScore;
         }
